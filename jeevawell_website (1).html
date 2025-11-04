@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JeevaWell - Healthcare & Wellness Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .auth-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 100%;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+        }
+
+        .logo h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .toggle-auth {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .toggle-auth a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .main-container {
+            display: none;
+            background: #f5f7fa;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .nav-brand h2 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .lang-selector {
+            padding: 8px 15px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 50px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-section h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s;
+        }
+
+        .hero-section p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section {
+            padding: 60px 50px;
+            background: white;
+            margin: 30px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-size: 28px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .bmi-calculator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .bmi-result {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .bmi-value {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .yoga-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .yoga-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .yoga-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .yoga-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .yoga-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: white;
+        }
+
+        .yoga-content {
+            padding: 20px;
+        }
+
+        .yoga-timer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f5f7fa;
+            border-radius: 10px;
+        }
+
+        .timer-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .timer-btn {
+            padding: 8px 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .medicine-search {
+            position: relative;
+        }
+
+        .medicine-search input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+
+        .medicine-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .medicine-suggestion {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .medicine-suggestion:hover {
+            background: #f5f7fa;
+        }
+
+        .medicine-info {
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+        }
+
+        .diet-recommendations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .diet-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .doctor-portal {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 60px;
+            border-radius: 20px;
+        }
+
+        .doctor-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .doctor-image {
+            width: 100%;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+        }
+
+        .appointment-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 30px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .food-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .food-item {
+            background: white;
+            color: #667eea;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Authentication Section -->
+    <div id="authContainer" class="auth-container">
+        <div class="auth-box">
+            <div class="logo">
+                <div class="logo-icon">❤️</div>
+                <h1 data-translate="app_name">JeevaWell</h1>
+                <p data-translate="app_tagline">Your Healthcare & Wellness Partner</p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #333;" data-translate="login">Login</h2>
+                <div class="form-group">
+                    <label data-translate="email">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="password">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button class="btn" onclick="login()" data-translate="login_btn">Login</button>
+                <div class="toggle-auth">
+                    <span data-translate="no_account">Don't have an account?</span> 
+                    <a onclick="showRegister()" data-translate="register_link">Register here</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="registerForm" style="display: none;">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #333;" data-translate="register">Register</h2>
+                <div class="form-group">
+                    <label data-translate="full_name">Full Name</label>
+                    <input type="text" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="email">Email</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="password">Password</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="age">Age</label>
+                    <input type="number" id="regAge" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="gender">Gender</label>
+                    <select id="regGender" required>
+                        <option value="" data-translate="select">Select</option>
+                        <option value="male" data-translate="male">Male</option>
+                        <option value="female" data-translate="female">Female</option>
+                        <option value="other" data-translate="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-translate="phone">Phone Number</label>
+                    <input type="tel" id="regPhone" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="medical_history">Medical History (Optional)</label>
+                    <input type="text" id="regHistory" placeholder="Any chronic conditions, allergies, etc.">
+                </div>
+                <button class="btn" onclick="register()" data-translate="register_btn">Register</button>
+                <div class="toggle-auth">
+                    <span data-translate="have_account">Already have an account?</span> 
+                    <a onclick="showLogin()" data-translate="login_link">Login here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Website Content -->
+    <div id="mainContainer" class="main-container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <div class="nav-logo">❤️</div>
+                <h2 data-translate="app_name">JeevaWell</h2>
+            </div>
+            <div class="nav-links">
+                <a onclick="scrollToSection('home')" data-translate="home">Home</a>
+                <a onclick="scrollToSection('bmi')" data-translate="bmi_calculator">BMI Calculator</a>
+                <a onclick="scrollToSection('yoga')" data-translate="yoga">Yoga</a>
+                <a onclick="scrollToSection('diet')" data-translate="diet">Diet</a>
+                <a onclick="scrollToSection('medicine')" data-translate="medicine">Medicine Info</a>
+                <a onclick="scrollToSection('doctor')" data-translate="doctor">Doctor</a>
+                <select class="lang-selector" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="mr">मराठी</option>
+                </select>
+                <button class="logout-btn" onclick="logout()" data-translate="logout">Logout</button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <h1 data-translate="hero_title">Welcome to JeevaWell</h1>
+            <p data-translate="hero_subtitle">Your Complete Healthcare and Wellness Solution</p>
+            <p data-translate="hero_desc">BMI Tracking | Yoga Guidance | Diet Plans | Medicine Information | Expert Consultation</p>
+        </section>
+
+        <!-- BMI Calculator Section -->
+        <section id="bmi" class="section">
+            <div class="section-title" data-translate="bmi_calculator">BMI Calculator</div>
+            <div class="bmi-calculator">
+                <div>
+                    <div class="form-group">
+                        <label data-translate="height_cm">Height (cm)</label>
+                        <input type="number" id="height" placeholder="170">
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="weight_kg">Weight (kg)</label>
+                        <input type="number" id="weight" placeholder="70">
+                    </div>
+                    <button class="btn" onclick="calculateBMI()" data-translate="calculate">Calculate BMI</button>
+                </div>
+                <div id="bmiResult" class="bmi-result" style="display: none;">
+                    <h3 data-translate="your_bmi">Your BMI</h3>
+                    <div class="bmi-value" id="bmiValue">0</div>
+                    <p id="bmiCategory"></p>
+                    <p id="bmiNote"></p>
+                </div>
+            </div>
+            <div id="foodRecommendations" style="display: none; margin-top: 30px;">
+                <h3 style="margin-bottom: 20px;" data-translate="recommended_foods">Recommended Foods for You</h3>
+                <div class="food-list" id="foodList"></div>
+            </div>
+        </section>
+
+        <!-- Yoga Section -->
+        <section id="yoga" class="section">
+            <div class="section-title" data-translate="yoga_poses">Yoga Poses</div>
+            
+            <div class="yoga-filter">
+                <button class="filter-btn active" onclick="filterYoga('all')" data-translate="all">All</button>
+                <button class="filter-btn" onclick="filterYoga('beginner')" data-translate="beginner">Beginner</button>
+                <button class="filter-btn" onclick="filterYoga('intermediate')" data-translate="intermediate">Intermediate</button>
+                <button class="filter-btn" onclick="filterYoga('advanced')" data-translate="advanced">Advanced</button>
+            </div>
+
+            <div class="yoga-grid" id="yogaGrid"></div>
+        </section>
+
+        <!-- Diet Section -->
+        <section id="diet" class="section">
+            <div class="section-title" data-translate="diet_guide">Diet Guide</div>
+            <p style="font-size: 18px; margin-bottom: 30px;" data-translate="diet_intro">Calculate your BMI first to get personalized diet recommendations</p>
+            <div class="diet-recommendations" id="dietRecommendations">
+                <div class="diet-card">
+                    <h3 data-translate="balanced_diet">🥗 Balanced Diet</h3>
+                    <p data-translate="balanced_desc">Include proteins, carbs, healthy fats, vitamins and minerals</p>
+                </div>
+                <div class="diet-card">
+                    <h3 data-translate="hydration">💧 Stay Hydrated</h3>
+                    <p data-translate="hydration_desc">Drink 8-10 glasses of water daily</p>
+                </div>
+                <div class="diet-card">
+                    <h3 data-translate="portion_control">🍽️ Portion Control</h3>
+                    <p data-translate="portion_desc">Eat smaller meals throughout the day</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Medicine Information Section -->
+        <section id="medicine" class="section">
+            <div class="section-title" data-translate="medicine_info">Medicine Information Portal</div>
+            <div class="medicine-search">
+                <input type="text" id="medicineSearch" placeholder="Search for medicine..." onkeyup="searchMedicine()" data-translate-placeholder="search_medicine">
+                <div id="medicineSuggestions" class="medicine-suggestions" style="display: none;"></div>
+            </div>
+            <div id="medicineInfo" class="medicine-info" style="display: none;"></div>
+        </section>
+
+        <!-- Doctor Portal Section -->
+        <section id="doctor" class="section">
+            <div class="doctor-portal">
+                <div class="section-title" data-translate="book_appointment">Book Appointment with Dr. Nishant Kakade</div>
+                
+                <div class="doctor-info">
+                    <div>
+                        <div class="doctor-image">👨‍⚕️</div>
+                    </div>
+                    <div>
+                        <h2>Dr. Nishant Kakade</h2>
+                        <p style="font-size: 18px; margin: 10px 0;">B.A.M.S., M.D. | Ayu Scholar</p>
+                        <p style="margin: 15px 0;" data-translate="education">Education: GMC Nagpur</p>
+                        <p style="margin: 15px 0;" data-translate="clinic_location">Clinic Location: Chh. Sambhajinagar</p>
+                        <p style="margin: 15px 0;" data-translate="specialization">Specialization: Allopathy & Ayurveda</p>
+                        <p data-translate="consultation_types">Consultation Types: Online & Offline</p>
+                    </div>
+                </div>
+
+                <div class="appointment-form">
+                    <h3 style="margin-bottom: 20px;" data-translate="appointment_details">Appointment Details</h3>
+                    <div class="form-group">
+                        <label data-translate="patient_name">Patient Name</label>
+                        <input type="text" id="patientName" style="background: white; color: #333;">
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="patient_age">Age</label>
+                        <input type="number" id="patientAge" style="background: white; color: #333;">
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="symptoms">Chief Complaints / Symptoms</label>
+                        <input type="text" id="symptoms" style="background: white; color: #333;">
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="appointment_date">Preferred Date</label>
+                        <input type="date" id="appointmentDate" style="background: white; color: #333;">
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="appointment_time">Preferred Time</label>
+                        <input type="time" id="appointmentTime" style="background: white; color: #333;">
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="consultation_type">Consultation Type</label>
+                        <select id="consultationType" style="background: white; color: #333;">
+                            <option value="online" data-translate="online">Online</option>
+                            <option value="offline" data-translate="offline">Offline</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="previous_medical">Previous Medical History</label>
+                        <input type="text" id="medicalHistory" style="background: white; color: #333;">
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="current_medications">Current Medications</label>
+                        <input type="text" id="currentMeds" style="background: white; color: #333;">
+                    </div>
+                    <button class="btn" onclick="bookAppointment()" data-translate="book_now">Book Appointment</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h3 data-translate="contact_us">Contact Us</h3>
+            <p style="margin: 20px 0;">
+                <strong data-translate="email">Email:</strong> JeevaWell4@gmail.com<br>
+                <strong data-translate="instagram">Instagram:</strong> @JeevaWell
+            </p>
+            <p style="margin-top: 30px;" data-translate="created_by">Created by 4 passionate students from Pune</p>
+            <p style="margin-top: 20px;">© 2025 JeevaWell. <span data-translate="all_rights">All rights reserved.</span></p>
+        </footer>
+
+        <button class="back-btn" onclick="scrollToTop()">↑</button>
+    </div>
+
+    <script>
+        // Translation data
+        const translations = {
+            en: {
+                app_name: "JeevaWell",
+                app_tagline: "Your Healthcare & Wellness Partner",
+                login: "Login",
+                register: "Register",
+                email: "Email",
+                password: "Password",
+                login_btn: "Login",
+                register_btn: "Register",
+                no_account: "Don't have an account?",
+                have_account: "Already have an account?",
+                register_link: "Register here",
+                login_link: "Login here",
+                full_name: "Full Name",
+                age: "Age",
+                gender: "Gender",
+                select: "Select",
+                male: "Male",
+                female: "Female",
+                other: "Other",
+                phone: "Phone Number",
+                medical_history: "Medical History (Optional)",
+                home: "Home",
+                bmi_calculator: "BMI Calculator",
+                yoga: "Yoga",
+                diet: "Diet",
+                medicine: "Medicine Info",
+                doctor: "Doctor",
+                logout: "Logout",
+                hero_title: "Welcome to JeevaWell",
+                hero_subtitle: "Your Complete Healthcare and Wellness Solution",
+                hero_desc: "BMI Tracking | Yoga Guidance | Diet Plans | Medicine Information | Expert Consultation",
+                height_cm: "Height (cm)",
+                weight_kg: "Weight (kg)",
+                calculate: "Calculate BMI",
+                your_bmi: "Your BMI",
+                recommended_foods: "Recommended Foods for You",
+                yoga_poses: "Yoga Poses",
+                all: "All",
+                beginner: "Beginner",
+                intermediate: "Intermediate",
+                advanced: "Advanced",
+                diet_guide: "Diet Guide",
+                diet_intro: "Calculate your BMI first to get personalized diet recommendations",
+                balanced_diet: "🥗 Balanced Diet",
+                balanced_desc: "Include proteins, carbs, healthy fats, vitamins and minerals",
+                hydration: "💧 Stay Hydrated",
+                hydration_desc: "Drink 8-10 glasses of water daily",
+                portion_control: "🍽️ Portion Control",
+                portion_desc: "Eat smaller meals throughout the day",
+                medicine_info: "Medicine Information Portal",
+                search_medicine: "Search for medicine...",
+                book_appointment: "Book Appointment with Dr. Nishant Kakade",
+                education: "Education: GMC Nagpur",
+                clinic_location: "Clinic Location: Chh. Sambhajinagar",
+                specialization: "Specialization: Allopathy & Ayurveda",
+                consultation_types: "Consultation Types: Online & Offline",
+                appointment_details: "Appointment Details",
+                patient_name: "Patient Name",
+                patient_age: "Age",
+                symptoms: "Chief Complaints / Symptoms",
+                appointment_date: "Preferred Date",
+                appointment_time: "Preferred Time",
+                consultation_type: "Consultation Type",
+                online: "Online",
+                offline: "Offline",
+                previous_medical: "Previous Medical History",
+                current_medications: "Current Medications",
+                book_now: "Book Appointment",
+                contact_us: "Contact Us",
+                instagram: "Instagram",
+                created_by: "Created by 4 passionate students from Pune",
+                all_rights: "All rights reserved.",
+                benefits: "Benefits",
+                good_for: "Good for",
+                duration: "Duration",
+                start: "Start",
+                pause: "Pause",
+                reset: "Reset",
+                minutes: "min",
+                seconds: "sec"
+            },
+            hi: {
+                app_name: "जीवावेल",
+                app_tagline: "आपका स्वास्थ्य और कल्याण साथी",
+                login: "लॉगिन",
+                register: "रजिस्टर",
+                email: "ईमेल",
+                password: "पासवर्ड",
+                login_btn: "लॉगिन करें",
+                register_btn: "रजिस्टर करें",
+                no_account: "खाता नहीं है?",
+                have_account: "पहले से खाता है?",
+                register_link: "यहाँ रजिस्टर करें",
+                login_link: "यहाँ लॉगिन करें",
+                full_name: "पूरा नाम",
+                age: "उम्र",
+                gender: "लिंग",
+                select: "चुनें",
+                male: "पुरुष",
+                female: "महिला",
+                other: "अन्य",
+                phone: "फोन नंबर",
+                medical_history: "चिकित्सा इतिहास (वैकल्पिक)",
+                home: "होम",
+                bmi_calculator: "बीएमआई कैलकुलेटर",
+                yoga: "योग",
+                diet: "आहार",
+                medicine: "दवा जानकारी",
+                doctor: "डॉक्टर",
+                logout: "लॉगआउट",
+                hero_title: "जीवावेल में आपका स्वागत है",
+                hero_subtitle: "आपका संपूर्ण स्वास्थ्य और कल्याण समाधान",
+                hero_desc: "बीएमआई ट्रैकिंग | योग मार्गदर्शन | आहार योजना | दवा जानकारी | विशेषज्ञ परामर्श",
+                height_cm: "ऊंचाई (सेमी)",
+                weight_kg: "वजन (किलो)",
+                calculate: "बीएमआई गणना करें",
+                your_bmi: "आपका बीएमआई",
+                recommended_foods: "आपके लिए अनुशंसित खाद्य पदार्थ",
+                yoga_poses: "योग आसन",
+                all: "सभी",
+                beginner: "शुरुआती",
+                intermediate: "मध्यम",
+                advanced: "उन्नत",
+                diet_guide: "आहार गाइड",
+                diet_intro: "व्यक्तिगत आहार सिफारिशें प्राप्त करने के लिए पहले अपना बीएमआई गणना करें",
+                balanced_diet: "🥗 संतुलित आहार",
+                balanced_desc: "प्रोटीन, कार्ब्स, स्वस्थ वसा, विटामिन और खनिज शामिल करें",
+                hydration: "💧 हाइड्रेटेड रहें",
+                hydration_desc: "प्रतिदिन 8-10 गिलास पानी पिएं",
+                portion_control: "🍽️ भाग नियंत्रण",
+                portion_desc: "दिन भर में छोटे भोजन खाएं",
+                medicine_info: "दवा सूचना पोर्टल",
+                search_medicine: "दवा खोजें...",
+                book_appointment: "डॉ. निशांत काकड़े के साथ अपॉइंटमेंट बुक करें",
+                education: "शिक्षा: जीएमसी नागपुर",
+                clinic_location: "क्लिनिक स्थान: छ. संभाजीनगर",
+                specialization: "विशेषज्ञता: एलोपैथी और आयुर्वेद",
+                consultation_types: "परामर्श प्रकार: ऑनलाइन और ऑफलाइन",
+                appointment_details: "अपॉइंटमेंट विवरण",
+                patient_name: "रोगी का नाम",
+                patient_age: "उम्र",
+                symptoms: "मुख्य शिकायतें / लक्षण",
+                appointment_date: "पसंदीदा तारीख",
+                appointment_time: "पसंदीदा समय",
+                consultation_type: "परामर्श प्रकार",
+                online: "ऑनलाइन",
+                offline: "ऑफलाइन",
+                previous_medical: "पिछला चिकित्सा इतिहास",
+                current_medications: "वर्तमान दवाएं",
+                book_now: "अपॉइंटमेंट बुक करें",
+                contact_us: "संपर्क करें",
+                instagram: "इंस्टाग्राम",
+                created_by: "पुणे के 4 जुनूनी छात्रों द्वारा निर्मित",
+                all_rights: "सर्वाधिकार सुरक्षित।",
+                benefits: "लाभ",
+                good_for: "इसके लिए अच्छा",
+                duration: "अवधि",
+                start: "शुरू",
+                pause: "रोकें",
+                reset: "रीसेट",
+                minutes: "मिनट",
+                seconds: "सेकंड"
+            },
+            mr: {
+                app_name: "जीवावेल",
+                app_tagline: "तुमचा आरोग्य आणि कल्याण साथी",
+                login: "लॉगिन",
+                register: "नोंदणी",
+                email: "ईमेल",
+                password: "पासवर्ड",
+                login_btn: "लॉगिन करा",
+                register_btn: "नोंदणी करा",
+                no_account: "खाते नाही?",
+                have_account: "आधीच खाते आहे?",
+                register_link: "येथे नोंदणी करा",
+                login_link: "येथे लॉगिन करा",
+                full_name: "पूर्ण नाव",
+                age: "वय",
+                gender: "लिंग",
+                select: "निवडा",
+                male: "पुरुष",
+                female: "स्त्री",
+                other: "इतर",
+                phone: "फोन नंबर",
+                medical_history: "वैद्यकीय इतिहास (ऐच्छिक)",
+                home: "होम",
+                bmi_calculator: "बीएमआय कॅल्क्युलेटर",
+                yoga: "योग",
+                diet: "आहार",
+                medicine: "औषध माहिती",
+                doctor: "डॉक्टर",
+                logout: "लॉगआउट",
+                hero_title: "जीवावेलमध्ये आपले स्वागत आहे",
+                hero_subtitle: "तुमचा संपूर्ण आरोग्य आणि कल्याण उपाय",
+                hero_desc: "बीएमआय ट्रॅकिंग | योग मार्गदर्शन | आहार योजना | औषध माहिती | तज्ञ सल्ला",
+                height_cm: "उंची (सेमी)",
+                weight_kg: "वजन (किलो)",
+                calculate: "बीएमआय मोजा",
+                your_bmi: "तुमचा बीएमआय",
+                recommended_foods: "तुमच्यासाठी शिफारस केलेले खाद्यपदार्थ",
+                yoga_poses: "योगासने",
+                all: "सर्व",
+                beginner: "प्रारंभिक",
+                intermediate: "मध्यम",
+                advanced: "प्रगत",
+                diet_guide: "आहार मार्गदर्शक",
+                diet_intro: "वैयक्तिक आहार शिफारसी मिळविण्यासाठी प्रथम तुमचा बीएमआय मोजा",
+                balanced_diet: "🥗 संतुलित आहार",
+                balanced_desc: "प्रथिने, कार्ब्स, निरोगी चरबी, जीवनसत्त्वे आणि खनिजे समाविष्ट करा",
+                hydration: "💧 हायड्रेटेड राहा",
+                hydration_desc: "दररोज 8-10 ग्लास पाणी प्या",
+                portion_control: "🍽️ भाग नियंत्रण",
+                portion_desc: "दिवसभर लहान जेवण खा",
+                medicine_info: "औषध माहिती पोर्टल",
+                search_medicine: "औषध शोधा...",
+                book_appointment: "डॉ. निशांत काकडे यांच्याकडे अपॉइंटमेंट बुक करा",
+                education: "शिक्षण: जीएमसी नागपूर",
+                clinic_location: "क्लिनिक स्थान: छ. संभाजीनगर",
+                specialization: "विशेषज्ञता: अ‍ॅलोपॅथी आणि आयुर्वेद",
+                consultation_types: "सल्ला प्रकार: ऑनलाइन आणि ऑफलाइन",
+                appointment_details: "अपॉइंटमेंट तपशील",
+                patient_name: "रुग्णाचे नाव",
+                patient_age: "वय",
+                symptoms: "मुख्य तक्रारी / लक्षणे",
+                appointment_date: "पसंतीची तारीख",
+                appointment_time: "पसंतीची वेळ",
+                consultation_type: "सल्ला प्रकार",
+                online: "ऑनलाइन",
+                offline: "ऑफलाइन",
+                previous_medical: "मागील वैद्यकीय इतिहास",
+                current_medications: "सध्याची औषधे",
+                book_now: "अपॉइंटमेंट बुक करा",
+                contact_us: "आमच्याशी संपर्क साधा",
+                instagram: "इंस्टाग्राम",
+                created_by: "पुण्यातील 4 उत्साही विद्यार्थ्यांनी तयार केले",
+                all_rights: "सर्व हक्क राखीव.",
+                benefits: "फायदे",
+                good_for: "यासाठी चांगले",
+                duration: "कालावधी",
+                start: "सुरू करा",
+                pause: "थांबवा",
+                reset: "रीसेट",
+                minutes: "मिनिटे",
+                seconds: "सेकंद"
+            }
+        };
+
+        let currentLang = 'en';
+        let currentUser = null;
+        let yogaTimers = {};
+
+        // Yoga poses data with detailed information
+        const yogaPoses = [
+            {
+                name: "Tadasana (Mountain Pose)",
+                level: "beginner",
+                duration: 2,
+                benefits: "Improves posture, strengthens thighs, knees, and ankles",
+                goodFor: "Back pain, stress relief, improving balance",
+                icon: "🧘"
+            },
+            {
+                name: "Vrikshasana (Tree Pose)",
+                level: "beginner",
+                duration: 1,
+                benefits: "Improves balance, strengthens legs and core",
+                goodFor: "Balance issues, concentration, anxiety",
+                icon: "🌳"
+            },
+            {
+                name: "Adho Mukha Svanasana (Downward Dog)",
+                level: "beginner",
+                duration: 3,
+                benefits: "Strengthens arms and legs, stretches spine",
+                goodFor: "Back pain, headaches, fatigue",
+                icon: "🐕"
+            },
+            {
+                name: "Bhujangasana (Cobra Pose)",
+                level: "beginner",
+                duration: 2,
+                benefits: "Strengthens spine, opens chest and lungs",
+                goodFor: "Asthma, back pain, stress",
+                icon: "🐍"
+            },
+            {
+                name: "Balasana (Child's Pose)",
+                level: "beginner",
+                duration: 5,
+                benefits: "Relieves stress, gently stretches back",
+                goodFor: "Stress, anxiety, fatigue",
+                icon: "😌"
+            },
+            {
+                name: "Virabhadrasana I (Warrior I)",
+                level: "intermediate",
+                duration: 2,
+                benefits: "Strengthens legs, opens chest and shoulders",
+                goodFor: "Sciatica, flat feet, infertility",
+                icon: "⚔️"
+            },
+            {
+                name: "Virabhadrasana II (Warrior II)",
+                level: "intermediate",
+                duration: 2,
+                benefits: "Strengthens legs and ankles, improves stamina",
+                goodFor: "Osteoporosis, carpal tunnel syndrome",
+                icon: "🗡️"
+            },
+            {
+                name: "Trikonasana (Triangle Pose)",
+                level: "intermediate",
+                duration: 2,
+                benefits: "Stretches hips, hamstrings, improves digestion",
+                goodFor: "Anxiety, back pain, sciatica",
+                icon: "📐"
+            },
+            {
+                name: "Ustrasana (Camel Pose)",
+                level: "intermediate",
+                duration: 1,
+                benefits: "Opens chest, improves spinal flexibility",
+                goodFor: "Respiratory ailments, anxiety, fatigue",
+                icon: "🐪"
+            },
+            {
+                name: "Setu Bandhasana (Bridge Pose)",
+                level: "intermediate",
+                duration: 2,
+                benefits: "Strengthens back muscles, relieves stress",
+                goodFor: "Anxiety, asthma, high blood pressure",
+                icon: "🌉"
+            },
+            {
+                name: "Halasana (Plow Pose)",
+                level: "advanced",
+                duration: 3,
+                benefits: "Stimulates thyroid, stretches shoulders and spine",
+                goodFor: "Insomnia, sinusitis, infertility",
+                icon: "🔧"
+            },
+            {
+                name: "Sirsasana (Headstand)",
+                level: "advanced",
+                duration: 2,
+                benefits: "Strengthens core, improves blood circulation to brain",
+                goodFor: "Stress relief, improving focus",
+                icon: "🙃"
+            },
+            {
+                name: "Chakrasana (Wheel Pose)",
+                level: "advanced",
+                duration: 1,
+                benefits: "Strengthens arms and legs, increases spine flexibility",
+                goodFor: "Asthma, back pain, infertility",
+                icon: "⭕"
+            },
+            {
+                name: "Pincha Mayurasana (Forearm Stand)",
+                level: "advanced",
+                duration: 1,
+                benefits: "Strengthens shoulders and arms, improves balance",
+                goodFor: "Stress relief, building confidence",
+                icon: "🦚"
+            },
+            {
+                name: "Padmasana (Lotus Pose)",
+                level: "intermediate",
+                duration: 5,
+                benefits: "Calms brain, improves posture",
+                goodFor: "Menstrual discomfort, sciatica, high blood pressure",
+                icon: "🪷"
+            },
+            {
+                name: "Paschimottanasana (Seated Forward Bend)",
+                level: "beginner",
+                duration: 3,
+                benefits: "Stretches spine, shoulders, hamstrings",
+                goodFor: "Stress, anxiety, headache",
+                icon: "🧎"
+            },
+            {
+                name: "Matsyasana (Fish Pose)",
+                level: "beginner",
+                duration: 2,
+                benefits: "Stretches chest and neck, relieves tension",
+                goodFor: "Respiratory problems, anxiety, fatigue",
+                icon: "🐟"
+            },
+            {
+                name: "Ardha Matsyendrasana (Half Spinal Twist)",
+                level: "intermediate",
+                duration: 2,
+                benefits: "Energizes spine, stimulates digestive fire",
+                goodFor: "Menstrual discomfort, fatigue, sciatica",
+                icon: "🔄"
+            }
+        ];
+
+        // Medicine database
+        const medicines = [
+            { name: "Paracetamol", use: "Pain relief, fever reducer", dosage: "500-1000mg every 4-6 hours", sideEffects: "Rare: liver damage with overdose" },
+            { name: "Ibuprofen", use: "Anti-inflammatory, pain relief", dosage: "200-400mg every 4-6 hours", sideEffects: "Stomach upset, heartburn" },
+            { name: "Aspirin", use: "Pain relief, blood thinner", dosage: "75-325mg daily", sideEffects: "Stomach bleeding, allergic reactions" },
+            { name: "Amoxicillin", use: "Antibiotic for bacterial infections", dosage: "250-500mg every 8 hours", sideEffects: "Diarrhea, nausea, rash" },
+            { name: "Azithromycin", use: "Antibiotic for respiratory infections", dosage: "500mg on day 1, then 250mg for 4 days", sideEffects: "Diarrhea, nausea, abdominal pain" },
+            { name: "Metformin", use: "Type 2 diabetes management", dosage: "500-2000mg daily", sideEffects: "Diarrhea, nausea, lactic acidosis" },
+            { name: "Omeprazole", use: "Reduces stomach acid", dosage: "20-40mg daily", sideEffects: "Headache, diarrhea, abdominal pain" },
+            { name: "Cetirizine", use: "Antihistamine for allergies", dosage: "10mg once daily", sideEffects: "Drowsiness, dry mouth" },
+            { name: "Lisinopril", use: "Blood pressure management", dosage: "10-40mg daily", sideEffects: "Dizziness, cough, headache" },
+            { name: "Atorvastatin", use: "Cholesterol management", dosage: "10-80mg daily", sideEffects: "Muscle pain, liver problems" },
+            { name: "Levothyroxine", use: "Thyroid hormone replacement", dosage: "25-200mcg daily", sideEffects: "Weight changes, tremors" },
+            { name: "Montelukast", use: "Asthma and allergy management", dosage: "10mg daily", sideEffects: "Headache, abdominal pain" },
+            { name: "Losartan", use: "Blood pressure management", dosage: "25-100mg daily", sideEffects: "Dizziness, upper respiratory infection" },
+            { name: "Clopidogrel", use: "Blood thinner, prevents clots", dosage: "75mg daily", sideEffects: "Bleeding, bruising" },
+            { name: "Ranitidine", use: "Reduces stomach acid", dosage: "150mg twice daily", sideEffects: "Headache, constipation" },
+            { name: "Diclofenac", use: "Anti-inflammatory, pain relief", dosage: "50mg 2-3 times daily", sideEffects: "Stomach upset, dizziness" },
+            { name: "Prednisolone", use: "Corticosteroid for inflammation", dosage: "5-60mg daily", sideEffects: "Weight gain, mood changes" },
+            { name: "Salbutamol", use: "Bronchodilator for asthma", dosage: "100-200mcg as needed", sideEffects: "Tremors, increased heart rate" },
+            { name: "Doxycycline", use: "Antibiotic for various infections", dosage: "100mg twice daily", sideEffects: "Nausea, photosensitivity" },
+            { name: "Tramadol", use: "Moderate to severe pain relief", dosage: "50-100mg every 4-6 hours", sideEffects: "Dizziness, nausea, constipation" }
+        ];
+
+        // Authentication functions
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                alert(translations[currentLang].email + ' and ' + translations[currentLang].password + ' are required!');
+                return;
+            }
+
+            // Simulate login
+            currentUser = { email: email };
+            showMainWebsite();
+        }
+
+        function register() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const age = document.getElementById('regAge').value;
+            const gender = document.getElementById('regGender').value;
+            const phone = document.getElementById('regPhone').value;
+            const history = document.getElementById('regHistory').value;
+
+            if (!name || !email || !password || !age || !gender || !phone) {
+                alert('Please fill all required fields!');
+                return;
+            }
+
+            // Simulate registration
+            currentUser = {
+                name: name,
+                email: email,
+                age: age,
+                gender: gender,
+                phone: phone,
+                medicalHistory: history
+            };
+
+            alert('Registration successful! Welcome to JeevaWell!');
+            showMainWebsite();
+        }
+
+        function showMainWebsite() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'block';
+            loadYogaPoses('all');
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('authContainer').style.display = 'flex';
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        // BMI Calculator
+        function calculateBMI() {
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+
+            if (!height || !weight) {
+                alert('Please enter both height and weight!');
+                return;
+            }
+
+            const bmi = (weight / ((height / 100) ** 2)).toFixed(1);
+            const result = document.getElementById('bmiResult');
+            const value = document.getElementById('bmiValue');
+            const category = document.getElementById('bmiCategory');
+            const note = document.getElementById('bmiNote');
+
+            value.textContent = bmi;
+            result.style.display = 'block';
+
+            let categoryText = '';
+            let noteText = '';
+            let foods = [];
+
+            if (bmi < 18.5) {
+                categoryText = 'Underweight';
+                noteText = 'You should focus on gaining weight in a healthy way. Consult our doctor for personalized advice.';
+                foods = ['Nuts and nut butters', 'Whole grain bread', 'Cheese', 'Avocados', 'Protein shakes', 'Dried fruits', 'Olive oil', 'Fatty fish'];
+            } else if (bmi < 25) {
+                categoryText = 'Normal Weight';
+                noteText = 'Great! Maintain your healthy lifestyle with balanced diet and regular exercise.';
+                foods = ['Leafy greens', 'Whole grains', 'Lean proteins', 'Fruits', 'Vegetables', 'Legumes', 'Low-fat dairy', 'Healthy fats'];
+            } else if (bmi < 30) {
+                categoryText = 'Overweight';
+                noteText = 'Consider a balanced diet and regular exercise. Our doctor can help you with a personalized plan.';
+                foods = ['Vegetables', 'Fruits', 'Whole grains', 'Lean proteins', 'Low-fat dairy', 'Beans and lentils', 'Green tea', 'Water-rich foods'];
+            } else {
+                categoryText = 'Obese';
+                noteText = 'We recommend consulting our doctor for a comprehensive health plan. Your health is important!';
+                foods = ['Leafy greens', 'Cruciferous vegetables', 'Berries', 'Lean proteins', 'Legumes', 'Green tea', 'Whole grains (limited)', 'Low-fat dairy'];
+            }
+
+            category.textContent = categoryText;
+            note.textContent = noteText;
+
+            // Show food recommendations
+            const foodRecommendations = document.getElementById('foodRecommendations');
+            const foodList = document.getElementById('foodList');
+            foodList.innerHTML = '';
+            foods.forEach(food => {
+                const foodItem = document.createElement('div');
+                foodItem.className = 'food-item';
+                foodItem.textContent = food;
+                foodList.appendChild(foodItem);
+            });
+            foodRecommendations.style.display = 'block';
+
+            // Scroll to result
+            result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Yoga functions
+        function loadYogaPoses(level) {
+            const grid = document.getElementById('yogaGrid');
+            grid.innerHTML = '';
+
+            const filtered = level === 'all' ? yogaPoses : yogaPoses.filter(pose => pose.level === level);
+
+            filtered.forEach((pose, index) => {
+                const card = document.createElement('div');
+                card.className = 'yoga-card';
+                card.innerHTML = `
+                    <div class="yoga-image">${pose.icon}</div>
+                    <div class="yoga-content">
+                        <h3>${pose.name}</h3>
+                        <p style="margin: 10px 0; color: #667eea; font-weight: 600;">${pose.level.charAt(0).toUpperCase() + pose.level.slice(1)} Level</p>
+                        <p style="margin: 10px 0;"><strong>${translations[currentLang].benefits}:</strong> ${pose.benefits}</p>
+                        <p style="margin: 10px 0;"><strong>${translations[currentLang].good_for}:</strong> ${pose.goodFor}</p>
+                        <div class="yoga-timer">
+                            <div>
+                                <div style="font-size: 12px; color: #666;">${translations[currentLang].duration}</div>
+                                <div class="timer-display" id="timer-${index}">
+                                    <span id="timer-min-${index}">${pose.duration}</span>:<span id="timer-sec-${index}">00</span>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="timer-btn" onclick="startTimer(${index}, ${pose.duration})">${translations[currentLang].start}</button>
+                                <button class="timer-btn" onclick="pauseTimer(${index})">${translations[currentLang].pause}</button>
+                                <button class="timer-btn" onclick="resetTimer(${index}, ${pose.duration})">${translations[currentLang].reset}</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterYoga(level) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            loadYogaPoses(level);
+        }
+
+        function startTimer(id, duration) {
+            if (yogaTimers[id]) {
+                clearInterval(yogaTimers[id]);
+            }
+
+            let totalSeconds = duration * 60;
+            const minDisplay = document.getElementById(`timer-min-${id}`);
+            const secDisplay = document.getElementById(`timer-sec-${id}`);
+
+            yogaTimers[id] = setInterval(() => {
+                if (totalSeconds <= 0) {
+                    clearInterval(yogaTimers[id]);
+                    alert('Time\'s up! Great job!');
+                    return;
+                }
+
+                totalSeconds--;
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = totalSeconds % 60;
+                minDisplay.textContent = mins;
+                secDisplay.textContent = secs.toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        function pauseTimer(id) {
+            if (yogaTimers[id]) {
+                clearInterval(yogaTimers[id]);
+            }
+        }
+
+        function resetTimer(id, duration) {
+            if (yogaTimers[id]) {
+                clearInterval(yogaTimers[id]);
+            }
+            document.getElementById(`timer-min-${id}`).textContent = duration;
+            document.getElementById(`timer-sec-${id}`).textContent = '00';
+        }
+
+        // Medicine search functions
+        function searchMedicine() {
+            const searchTerm = document.getElementById('medicineSearch').value.toLowerCase();
+            const suggestions = document.getElementById('medicineSuggestions');
+
+            if (searchTerm.length === 0) {
+                suggestions.style.display = 'none';
+                return;
+            }
+
+            const filtered = medicines.filter(med => 
+                med.name.toLowerCase().startsWith(searchTerm)
+            );
+
+            if (filtered.length > 0) {
+                suggestions.innerHTML = '';
+                filtered.forEach(med => {
+                    const div = document.createElement('div');
+                    div.className = 'medicine-suggestion';
+                    div.textContent = med.name;
+                    div.onclick = () => showMedicineInfo(med);
+                    suggestions.appendChild(div);
+                });
+                suggestions.style.display = 'block';
+            } else {
+                suggestions.style.display = 'none';
+            }
+        }
+
+        function showMedicineInfo(medicine) {
+            document.getElementById('medicineSearch').value = medicine.name;
+            document.getElementById('medicineSuggestions').style.display = 'none';
+            
+            const info = document.getElementById('medicineInfo');
+            info.innerHTML = `
+                <h2 style="margin-bottom: 20px;">${medicine.name}</h2>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <h3 style="margin-bottom: 10px;">💊 Uses</h3>
+                    <p>${medicine.use}</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <h3 style="margin-bottom: 10px;">📋 Dosage</h3>
+                    <p>${medicine.dosage}</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <h3 style="margin-bottom: 10px;">⚠️ Side Effects</h3>
+                    <p>${medicine.sideEffects}</p>
+                </div>
+                <p style="margin-top: 20px; font-size: 14px; font-style: italic;">
+                    ⚕️ Always consult with a healthcare professional before taking any medication. 
+                    Book an appointment with Dr. Nishant Kakade for personalized medical advice.
+                </p>
+            `;
+            info.style.display = 'block';
+        }
+
+        // Doctor appointment booking
+        function bookAppointment() {
+            const patientName = document.getElementById('patientName').value;
+            const patientAge = document.getElementById('patientAge').value;
+            const symptoms = document.getElementById('symptoms').value;
+            const appointmentDate = document.getElementById('appointmentDate').value;
+            const appointmentTime = document.getElementById('appointmentTime').value;
+            const consultationType = document.getElementById('consultationType').value;
+            const medicalHistory = document.getElementById('medicalHistory').value;
+            const currentMeds = document.getElementById('currentMeds').value;
+
+            if (!patientName || !patientAge || !symptoms || !appointmentDate || !appointmentTime) {
+                alert('Please fill all required fields!');
+                return;
+            }
+
+            // Create appointment summary
+            const appointmentData = {
+                patient: patientName,
+                age: patientAge,
+                symptoms: symptoms,
+                date: appointmentDate,
+                time: appointmentTime,
+                type: consultationType,
+                history: medicalHistory,
+                medications: currentMeds,
+                userEmail: currentUser.email,
+                bookedAt: new Date().toLocaleString()
+            };
+
+            // Store appointment (in real app, this would go to backend/doctor portal)
+            let appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            appointments.push(appointmentData);
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+
+            alert(`Appointment booked successfully!\n\nDoctor: Dr. Nishant Kakade\nPatient: ${patientName}\nDate: ${appointmentDate}\nTime: ${appointmentTime}\nType: ${consultationType}\n\nYou will receive a confirmation email at ${currentUser.email}`);
+
+            // Clear form
+            document.getElementById('patientName').value = '';
+            document.getElementById('patientAge').value = '';
+            document.getElementById('symptoms').value = '';
+            document.getElementById('appointmentDate').value = '';
+            document.getElementById('appointmentTime').value = '';
+            document.getElementById('medicalHistory').value = '';
+            document.getElementById('currentMeds').value = '';
+        }
+
+        // Navigation functions
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Language change function
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Update all elements with data-translate attribute
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
+                        if (element.placeholder) {
+                            element.placeholder = translations[lang][key];
+                        }
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Reload yoga poses with new language
+            if (document.getElementById('yogaGrid').children.length > 0) {
+                loadYogaPoses('all');
+            }
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            // Set minimum date for appointment to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointmentDate').setAttribute('min', today);
+        };
+
+        // Close medicine suggestions when clicking outside
+        document.addEventListener('click', function(event) {
+            const searchBox = document.getElementById('medicineSearch');
+            const suggestions = document.getElementById('medicineSuggestions');
+            if (event.target !== searchBox) {
+                suggestions.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
